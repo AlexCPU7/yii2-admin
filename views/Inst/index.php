@@ -1,6 +1,7 @@
 <?php
 
 $site = file_get_contents('https://www.instagram.com/animeshnik_art/');
+var_dump($site);
 $start = '"edge_followed_by"';
 $end = ',"followed_by_viewer"';
 //$start = '{"activity_counts"';

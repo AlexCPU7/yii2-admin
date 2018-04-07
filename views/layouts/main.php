@@ -39,7 +39,7 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Инст', 'url' => ['/instagram/index']],
+                ['label' => 'Инст', 'url' => ['/instagram']],
                     '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
