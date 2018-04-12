@@ -12,21 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
     <?= $form->field($model, 'accound')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'posts')->textInput() ?>
-
-    <?= $form->field($model, 'followers')->textInput() ?>
-
-    <?= $form->field($model, 'following')->textInput() ?>
-
-    <?= $form->field($model, 'datatime')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

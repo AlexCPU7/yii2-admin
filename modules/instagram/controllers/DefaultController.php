@@ -65,8 +65,11 @@ class DefaultController extends Controller
     public function actionCreate()
     {
         $model = new Accounts();
+        $model->load(Yii::$app->request->post());
 
+        $model->user_id = 1;
 
+        var_dump(Yii::$app->request->post()['Accounts']['accound']);die;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
