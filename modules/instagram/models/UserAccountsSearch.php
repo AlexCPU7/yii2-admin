@@ -5,12 +5,12 @@ namespace app\modules\instagram\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\instagram\models\Accounts;
+use app\modules\instagram\models\UserAccounts;
 
 /**
- * AccountsSearch represents the model behind the search form of `app\modules\instagram\models\Accounts`.
+ * UserAccountsSearch represents the model behind the search form of `app\modules\instagram\models\UserAccounts`.
  */
-class AccountsSearch extends Accounts
+class UserAccountsSearch extends UserAccounts
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AccountsSearch extends Accounts
     public function rules()
     {
         return [
-            [['id', 'user_id', 'posts', 'followers', 'following', 'datatime'], 'integer'],
-            [['accound', 'avatar', 'descr'], 'safe'],
+            [['id', 'user_id', 'followers', 'following', 'posts', 'datatime'], 'integer'],
+            [['accound', 'avatar', 'name', 'descr'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AccountsSearch extends Accounts
      */
     public function search($params)
     {
-        $query = Accounts::find();
+        $query = UserAccounts::find();
 
         // add conditions that should always apply here
 
@@ -61,14 +61,15 @@ class AccountsSearch extends Accounts
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'posts' => $this->posts,
             'followers' => $this->followers,
             'following' => $this->following,
+            'posts' => $this->posts,
             'datatime' => $this->datatime,
         ]);
 
         $query->andFilterWhere(['like', 'accound', $this->accound])
             ->andFilterWhere(['like', 'avatar', $this->avatar])
+            ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'descr', $this->descr]);
 
         return $dataProvider;
