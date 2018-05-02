@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\instagram\models\Accounts */
+/* @var $model app\modules\instagram\models\UserAccounts */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="accounts-form">
+<div class="user-accounts-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'accound')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'account')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -3,14 +3,15 @@
 namespace app\modules\instagram\controllers;
 
 use Yii;
-use app\modules\instagram\models\Accounts;
-use app\modules\instagram\models\AccountsSearch;
+use app\modules\instagram\models\UserAccounts;
+use app\modules\instagram\models\UserAccountsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\instagram\component\Parser;
 
 /**
- * AccountsController implements the CRUD actions for Accounts model.
+ * UserAccountsController implements the CRUD actions for UserAccounts model.
  */
 class DefaultController extends Controller
 {
@@ -30,12 +31,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all Accounts models.
+     * Lists all UserAccounts models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AccountsSearch();
+        $searchModel = new UserAccountsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,34 +46,33 @@ class DefaultController extends Controller
     }
 
     /**
-     * Displays a single Accounts model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Accounts model.
+     * Creates a new UserAccounts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Accounts();
-        $model->load(Yii::$app->request->post());
+        $model = new UserAccounts();
 
-        $model->user_id = 1;
+        if (Yii::$app->request->post() && $account = Yii::$app->request->post()['UserAccounts']['account']){
+            $parse = new Parser;
 
-        var_dump(Yii::$app->request->post()['Accounts']['accound']);die;
+            $info = $parse->refreshAccount($account);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model->user_id = Yii::$app->user->id;
+            $model->account = $account;
+            $model->avatar = $info['avatar'];
+            $model->name = $info['name'];
+            $model->descr = $info['descr'];
+            $model->followers = $info['followers'];
+            $model->following = $info['following'];
+            $model->posts = $info['posts'];
+            $model->datatime = time();
+
+            if ($model->validate()){
+                $model->save();
+                return $this->redirect('index');
+            }
         }
 
         return $this->render('create', [
@@ -81,7 +81,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Accounts model.
+     * Updates an existing UserAccounts model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,7 +92,7 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('update', [
@@ -101,7 +101,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Accounts model.
+     * Deletes an existing UserAccounts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,18 +115,18 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the Accounts model based on its primary key value.
+     * Finds the UserAccounts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Accounts the loaded model
+     * @return UserAccounts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Accounts::findOne($id)) !== null) {
+        if (($model = UserAccounts::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

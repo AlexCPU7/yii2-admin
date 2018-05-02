@@ -9,7 +9,7 @@ class m180407_164143_create_instagram_tables extends Migration
         $this->createTable('instagram_user_accounts', [
             'id'        => $this->primaryKey(),
             'user_id'   => $this->integer()->notNull(),
-            'accound'   => $this->string()->notNull(),
+            'account'   => $this->string()->notNull(),
             'avatar'    => $this->string()->notNull(),
             'name'    => $this->string()->notNull(),
             'descr'     => $this->string()->notNull(),
@@ -22,7 +22,7 @@ class m180407_164143_create_instagram_tables extends Migration
         $this->createTable('instagram_statistic', [
             'id'        => $this->primaryKey(),
             'user_id'   => $this->integer()->notNull(),
-            'accound'   => $this->string()->notNull(),
+            'account'   => $this->string()->notNull(),
             'followers' => $this->integer()->notNull(),
             'following' => $this->integer()->notNull(),
             'posts'     => $this->integer()->notNull(),

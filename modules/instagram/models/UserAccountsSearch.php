@@ -19,7 +19,7 @@ class UserAccountsSearch extends UserAccounts
     {
         return [
             [['id', 'user_id', 'followers', 'following', 'posts', 'datatime'], 'integer'],
-            [['accound', 'avatar', 'name', 'descr'], 'safe'],
+            [['account', 'avatar', 'name', 'descr'], 'safe'],
         ];
     }
 
@@ -67,7 +67,7 @@ class UserAccountsSearch extends UserAccounts
             'datatime' => $this->datatime,
         ]);
 
-        $query->andFilterWhere(['like', 'accound', $this->accound])
+        $query->andFilterWhere(['like', 'account', $this->account])
             ->andFilterWhere(['like', 'avatar', $this->avatar])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'descr', $this->descr]);

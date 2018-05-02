@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $user_id
- * @property string $accound
+ * @property string $account
  * @property int $followers
  * @property int $following
  * @property int $posts
@@ -31,9 +31,9 @@ class Statistic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'accound', 'followers', 'following', 'posts', 'datatime'], 'required'],
+            [['user_id', 'account', 'followers', 'following', 'posts', 'datatime'], 'required'],
             [['user_id', 'followers', 'following', 'posts', 'datatime'], 'integer'],
-            [['accound'], 'string', 'max' => 255],
+            [['account'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,7 +45,7 @@ class Statistic extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'accound' => Yii::t('app', 'Accound'),
+            'account' => Yii::t('app', 'Account'),
             'followers' => Yii::t('app', 'Followers'),
             'following' => Yii::t('app', 'Following'),
             'posts' => Yii::t('app', 'Posts'),

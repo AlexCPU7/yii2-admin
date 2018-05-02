@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\instagram\models\Accounts */
+/* @var $model app\modules\instagram\models\UserAccounts */
 
-$this->title = 'Create Accounts';
-$this->params['breadcrumbs'][] = ['label' => 'Accounts', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create User Accounts');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Accounts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="accounts-create">
+<div class="user-accounts-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

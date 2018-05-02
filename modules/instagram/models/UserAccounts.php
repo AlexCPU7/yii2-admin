@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $user_id
- * @property string $accound
+ * @property string $account
  * @property string $avatar
  * @property string $name
  * @property string $descr
@@ -34,9 +34,9 @@ class UserAccounts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'accound', 'avatar', 'name', 'descr', 'followers', 'following', 'posts', 'datatime'], 'required'],
+            [['user_id', 'account', 'avatar', 'name', 'descr', 'followers', 'following', 'posts', 'datatime'], 'required'],
             [['user_id', 'followers', 'following', 'posts', 'datatime'], 'integer'],
-            [['accound', 'avatar', 'name', 'descr'], 'string', 'max' => 255],
+            [['account', 'avatar', 'name', 'descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -48,7 +48,7 @@ class UserAccounts extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'accound' => Yii::t('app', 'Accound'),
+            'account' => Yii::t('app', 'Account'),
             'avatar' => Yii::t('app', 'Avatar'),
             'name' => Yii::t('app', 'Name'),
             'descr' => Yii::t('app', 'Descr'),
