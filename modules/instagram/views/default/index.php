@@ -28,17 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}',
                 'urlCreator' => function ($action, $model, $key, $index) {
-                    return 'statistic?id='.$model->id;
+                    return 'instagram/default/statistic?account='.$model->account;
                 },
             ],
             'id',
             'user_id',
             'account',
+
             [
                 'attribute' => 'avatar',
                 'format' => 'image',
                 'contentOptions'=>['style'=>'height: 270px; width: 180px; text-align: center;'],
             ],
+
             'descr:ntext',
             'posts',
             'followers',

@@ -3,19 +3,16 @@
 namespace app\modules\instagram\controllers;
 
 use Yii;
-use app\modules\instagram\models\UserAccounts;
-use app\modules\instagram\models\UserAccountsSearch;
+use app\modules\instagram\models\Statistic;
+use app\modules\instagram\models\StatisticSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\instagram\component\Parser;
-use app\modules\instagram\models\Statistic;
-use app\modules\instagram\models\StatisticSearch;
 
 /**
- * UserAccountsController implements the CRUD actions for UserAccounts model.
+ * StatisticController implements the CRUD actions for Statistic model.
  */
-class DefaultController extends Controller
+class StatisticController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +30,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all UserAccounts models.
+     * Lists all Statistic models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserAccountsSearch();
+        $searchModel = new StatisticSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,34 +45,29 @@ class DefaultController extends Controller
     }
 
     /**
-     * Creates a new UserAccounts model.
+     * Displays a single Statistic model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Statistic model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new UserAccounts();
+        $model = new Statistic();
 
-        if (Yii::$app->request->post() && $account = Yii::$app->request->post()['UserAccounts']['account']){
-
-            $parse = new Parser;
-
-            $info = $parse->refreshAccount($account);
-
-            $model->user_id = Yii::$app->user->id;
-            $model->account = $account;
-            $model->avatar = $info['avatar'];
-            $model->name = 'name';//$info['name'];
-            $model->descr = 'descr';//$info['descr'];
-            $model->followers = $info['followers'];
-            $model->following = $info['following'];
-            $model->posts = $info['posts'];
-            $model->datatime = time();
-
-            if ($model->validate()){
-                $model->save();
-                return $this->redirect('index');
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -84,7 +76,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing UserAccounts model.
+     * Updates an existing Statistic model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +87,7 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -104,7 +96,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing UserAccounts model.
+     * Deletes an existing Statistic model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,31 +110,18 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the UserAccounts model based on its primary key value.
+     * Finds the Statistic model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return UserAccounts the loaded model
+     * @return Statistic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = UserAccounts::findOne($id)) !== null) {
+        if (($model = Statistic::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
-    public function actionStatistic($account){
-
-        //$model = Statistic::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['account' => $account])->all();
-
-        $searchModel = new StatisticSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $account);
-
-        return $this->render('statistic', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 }
