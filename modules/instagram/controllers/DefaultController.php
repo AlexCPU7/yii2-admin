@@ -135,14 +135,15 @@ class DefaultController extends Controller
 
     public function actionStatistic($account){
 
-        //$model = Statistic::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['account' => $account])->all();
+        $model = Statistic::find()->where(['user_id' => Yii::$app->user->id])->andWhere(['account' => $account])->orderBy(['datatime' => SORT_DESC ])->all();
+        $account = UserAccounts::find()->where(['account' => $account])->one();
 
-        $searchModel = new StatisticSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $account);
+        //$searchModel = new StatisticSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams, $account);
 
         return $this->render('statistic', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'account' => $account
         ]);
     }
 }
