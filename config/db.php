@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2_admin',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'mysql:host=localhost;dbname=cp66616_admin',
+    'username' => 'cp66616_admin',
+    'password' => 'QWE123ASD',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
@@ -12,3 +12,4 @@ return [
     //'schemaCacheDuration' => 60,
     //'schemaCache' => 'cache',
 ];
+
