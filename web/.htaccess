@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 RewriteEngine On RewriteBase /
  
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
  
+=======
+RewriteEngine On RewriteBase /
+ 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+ 
+>>>>>>> 38f0a8628bc5fa3693c924894b94725d2edfa2d7
 RewriteRule . index.php
