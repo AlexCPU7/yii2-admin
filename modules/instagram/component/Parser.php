@@ -17,12 +17,14 @@ class Parser{
 
         $info = array_shift($rez->entry_data->ProfilePage)->graphql->user;
 
-        $allInfo = ['avatar' => $info->profile_pic_url_hd,
+        $allInfo = array(
+            'avatar' => $info->profile_pic_url_hd,
             'name' => $info->full_name,
             'descr' => $info->biography,
             'followers' => $info->edge_followed_by->count,
             'following' => $info->edge_follow->count,
-            'posts' => $info->edge_owner_to_timeline_media->count,];
+            'posts' => $info->edge_owner_to_timeline_media->count,
+        );
 
         return $allInfo;
     }
